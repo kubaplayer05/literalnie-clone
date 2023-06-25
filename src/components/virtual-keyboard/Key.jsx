@@ -7,7 +7,7 @@ const Key = props => {
     const letter = props.letter.toUpperCase()
 
     const keyHandler = () => {
-        console.log(`Pressed Key: ${letter}`)
+        props.enteredValueHandler(letter)
     }
 
     return (
