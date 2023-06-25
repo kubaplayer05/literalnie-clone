@@ -1,12 +1,14 @@
+import Keyboard from "./components/virtual-keyboard/Keyboard.jsx";
+
 import "./App.css"
 
-function App() {
+const App = () => {
 
-  return (
-    <>
-        <h1>Literalnie</h1>
-    </>
-  )
+    return (
+        <>
+            <Keyboard/>
+        </>
+    )
 }
 
 export default App
