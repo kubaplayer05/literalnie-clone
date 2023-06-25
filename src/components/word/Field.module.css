@@ -1,7 +1,11 @@
 .field {
     width: 60px;
     height: 60px;
-    font-size: 1.4rem;
+    font-size: 1.6rem;
     border: 2px solid #ffffff;
     background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
 }
