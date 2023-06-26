@@ -1,11 +1,20 @@
 :root {
-    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    font-family: 'Roboto Mono', monospace;
     line-height: 1.5;
     font-weight: 400;
 
+    --dark: #242424;
+    --gray: #7b857e;
+    --gray-light: #8c968f;
+    --gray-dark: #6a746d;
+    --gray-very-dark: #444B4A;
+    --green: #427629;
+    --yellow: #9E8F1C;
+    --white: rgba(255, 255, 255, 0.87);
+
     color-scheme: light dark;
-    color: rgba(255, 255, 255, 0.87);
-    background-color: #242424;
+    color: var(--white);
+    background-color: var(--dark);
 
     font-synthesis: none;
     text-rendering: optimizeLegibility;
