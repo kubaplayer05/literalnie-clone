@@ -8,6 +8,7 @@ const Field = props => {
 
     if(status === "perfect") statusStyle = style.perfect
     if(status === "good") statusStyle = style.good
+    if(status === "wrong") statusStyle = style.wrong
 
     return (
         <div className={`${style.field} ${statusStyle}`}>{value}</div>

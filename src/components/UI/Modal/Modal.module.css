@@ -6,7 +6,7 @@
     width: 400px;
     height: 300px;
     background-color: #fff;
-    color: #242424;
+    color: var(--dark);
     border-radius: 15px;
     z-index: 10;
 }

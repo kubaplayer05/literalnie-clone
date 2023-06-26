@@ -2,18 +2,22 @@
     width: 60px;
     height: 60px;
     font-size: 1.6rem;
-    border: 2px solid #ffffff;
+    border: 1px solid var(--gray-light);
     background-color: transparent;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: bold;
+    font-weight: 700;
 }
 
 .perfect {
-    background-color: #47A025;
+    background-color: var(--green);
 }
 
 .good {
-    background-color: #F4D35E;
+    background-color: var(--yellow);
+}
+
+.wrong {
+    background-color: var(--gray-very-dark);
 }
