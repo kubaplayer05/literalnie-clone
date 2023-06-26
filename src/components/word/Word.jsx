@@ -1,4 +1,4 @@
-import Field from "./Field.jsx";
+import Field from "./Field/Field.jsx";
 import style from "./Word.module.css"
 
 const Word = ({structure}) => {
