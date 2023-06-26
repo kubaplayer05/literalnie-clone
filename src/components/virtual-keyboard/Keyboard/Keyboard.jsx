@@ -1,4 +1,4 @@
-import Key from "./Key.jsx";
+import Key from "../Key/Key.jsx";
 
 import style from "./Keyboard.module.css"
 

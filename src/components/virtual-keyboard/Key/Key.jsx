@@ -1,4 +1,4 @@
-import Button from "../UI/Button.jsx";
+import Button from "../../UI/Button/Button.jsx";
 import style from "./Key.module.css"
 
 const Key = props => {

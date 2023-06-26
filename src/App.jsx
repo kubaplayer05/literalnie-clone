@@ -1,10 +1,17 @@
 import {useState} from "react";
-import Keyboard from "./components/virtual-keyboard/Keyboard.jsx";
-import "./App.css"
+import Keyboard from "./components/virtual-keyboard/Keyboard/Keyboard.jsx";
 import Word from "./components/word/Word.jsx";
+import GameEndModal from "./components/modals/GameEndModal.jsx";
+import Backdrop from "./components/UI/Backdrop/Backdrop.jsx";
+
+import "./App.css"
 
 const App = () => {
 
+    const [tries, setTries] = useState(1)
+    const [showModal, setShowModal] = useState(false)
+    const [showErrModal, setShowErrModal] = useState(false)
+    const [ModalContent, setModalContent] = useState(<></>)
     const [structure, updateStructure] = useState([
         {
             id: 0,
@@ -60,7 +67,12 @@ const App = () => {
     let activeRow = null
 
     const winGame = () => {
-        console.log("You won the game")
+        setShowModal(true)
+        setModalContent(<>
+            <h2>Wygrałeś</h2>
+            <p>Odgadnięte słowo to</p>
+            <h3>{DUMMY_TEXT}</h3>
+        </>)
     }
 
     const loseGame = () => {
@@ -76,7 +88,7 @@ const App = () => {
             }
         }
 
-        if(!activeRow) loseGame()
+        if (!activeRow) loseGame()
 
         switch (letter) {
             case "ENTER":
@@ -125,6 +137,8 @@ const App = () => {
         <>
             <Word structure={structure}/>
             <Keyboard enteredValueHandler={enteredValueHandler}/>
+            {showModal && <GameEndModal content={ModalContent}/>}
+            {showModal && <Backdrop/>}
         </>
     )
 }
