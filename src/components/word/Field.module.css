@@ -9,3 +9,11 @@
     justify-content: center;
     font-weight: bold;
 }
+
+.perfect {
+    background-color: #47A025;
+}
+
+.good {
+    background-color: #F4D35E;
+}
