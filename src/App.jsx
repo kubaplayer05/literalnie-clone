@@ -3,11 +3,14 @@ import Keyboard from "./components/virtual-keyboard/Keyboard/Keyboard.jsx";
 import Word from "./components/word/Word.jsx";
 import GameEndModal from "./components/modals/GameEndModal.jsx";
 import Backdrop from "./components/UI/Backdrop/Backdrop.jsx";
-
+import Header from "./components/header/Header.jsx";
 import "./App.css"
 
 const App = () => {
 
+    const [wins, setWins] = useState(parseInt(localStorage.getItem("wins")) || 0)
+    const [gamesPlayed, setGamesPlayed] = useState(parseInt(localStorage.getItem("games")) || 0)
+    const [winStreak, setWinStreak] = useState(parseInt(localStorage.getItem("winStreak")) || 0)
     const [tries, setTries] = useState(1)
     const [showModal, setShowModal] = useState(false)
     const [showErrModal, setShowErrModal] = useState(false)
@@ -67,6 +70,18 @@ const App = () => {
     let activeRow = null
 
     const winGame = () => {
+        localStorage.setItem("games", `${gamesPlayed + 1}`)
+        setGamesPlayed(prevGames => {
+            return parseInt(prevGames) + 1
+        })
+        localStorage.setItem("wins", `${parseInt(wins) + 1}`)
+        setWins(prevWins => {
+            return parseInt(prevWins) + 1
+        })
+        localStorage.setItem("winStreak", `${parseInt(winStreak) + 1}`)
+        setWinStreak(prevWinStreak => {
+            return parseInt(prevWinStreak) + 1
+        })
         setShowModal(true)
         setModalContent(<>
             <h2>Wygrałeś</h2>
@@ -76,7 +91,18 @@ const App = () => {
     }
 
     const loseGame = () => {
-        console.log("Game Over!")
+        localStorage.setItem("games", `${gamesPlayed + 1}`)
+        setGamesPlayed(prevGames => {
+            return parseInt(prevGames) + 1
+        })
+        localStorage.setItem("winStreak", "0")
+        setWinStreak(0)
+        setShowModal(true)
+        setModalContent(<>
+            <h2>Przegrałeś</h2>
+            <p>Tajemnicze słowo to</p>
+            <h3>{DUMMY_TEXT}</h3>
+        </>)
     }
 
     const enteredValueHandler = letter => {
@@ -133,11 +159,16 @@ const App = () => {
         })
     }
 
+    const closeModal = () => {
+        setShowModal(false)
+    }
+
     return (
         <>
+            <Header/>
             <Word structure={structure}/>
             <Keyboard enteredValueHandler={enteredValueHandler}/>
-            {showModal && <GameEndModal content={ModalContent}/>}
+            {showModal && <GameEndModal closeModal={closeModal} content={ModalContent}/>}
             {showModal && <Backdrop/>}
         </>
     )
