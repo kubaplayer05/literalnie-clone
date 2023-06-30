@@ -2,7 +2,7 @@ import Key from "../Key/Key.jsx";
 
 import style from "./Keyboard.module.css"
 
-const Keyboard = props => {
+const Keyboard = () => {
 
     const keyboardScheme = [
         ["ą", "ć", "ę", "ł", "ó", "ś", "ń", "ż", "ź"],
@@ -11,16 +11,12 @@ const Keyboard = props => {
         ["enter", "z", "x", "c", "v", "b", "n", "m", "<-"]
     ]
 
-    const enteredValueHandler = value => {
-        props.enteredValueHandler(value)
-    }
-
     return (
         <div className={style.keyboard}>
             {keyboardScheme.map((row, index) => {
                 return <div key={index} className={style.row}>
                     {row.map((letter, index) => {
-                        return <Key enteredValueHandler={enteredValueHandler} key={index} letter={letter}/>
+                        return <Key key={index} letter={letter}/>
                     })}
                 </div>
             })}
