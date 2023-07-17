@@ -1,7 +1,11 @@
+import {useContext} from "react";
+import {GameContext} from "../../store/gameContext.jsx";
 import Field from "./Field/Field.jsx";
 import style from "./Word.module.css"
 
-const Word = ({structure}) => {
+const Word = () => {
+
+    const {structure} = useContext(GameContext)
 
     return (
         <div className={style.container}>

@@ -2,6 +2,7 @@ import style from "./Field.module.css"
 
 const Field = props => {
 
+    // eslint-disable-next-line react/prop-types
     const {value, status} = props
 
     let statusStyle
