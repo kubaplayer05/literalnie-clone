@@ -1,5 +1,5 @@
 import {createPortal} from "react-dom";
-import {createContext, useState} from "react";
+import {createContext, useEffect, useState} from "react";
 import useStats from "../hooks/useStats.jsx";
 import GameEndModal from "../components/modals/GameEndModal.jsx";
 import Backdrop from "../components/UI/Backdrop/Backdrop.jsx";
@@ -59,7 +59,7 @@ export const GameProvider = ({children}) => {
             }, {value: "", status: "unchecked"}, {value: "", status: "unchecked"}]
         }
     ])
-    const DUMMY_TEXT = "tekst".toUpperCase()
+    const [word, setWord] = useState("")
 
     const wins = useStats("wins")
     const gamesPlayed = useStats("games")
@@ -93,15 +93,15 @@ export const GameProvider = ({children}) => {
                     let userWord = ""
                     activeRow.fields.forEach((field, index) => {
                         userWord += field.value
-                        if (field.value === DUMMY_TEXT[index]) {
+                        if (field.value === word[index]) {
                             field.status = "perfect"
-                        } else if (DUMMY_TEXT.includes(field.value)) {
+                        } else if (word.includes(field.value)) {
                             field.status = "good"
                         } else {
                             field.status = "wrong"
                         }
 
-                        if (userWord === DUMMY_TEXT) {
+                        if (userWord === word) {
                             winGame()
                         }
                     })
@@ -167,18 +167,50 @@ export const GameProvider = ({children}) => {
         setShowModal(false)
     }
 
+
+    useEffect(() => {
+
+        const getRandomWord = async () => {
+
+            const url = "http://localhost:3000/word"
+            const options = {
+                method: "GET",
+                mode: "cors",
+                headers: {
+                    "Content-Type": "application/json",
+                    "access-control-allow-origin": "*",
+                },
+            }
+
+            const response = await fetch(url, options)
+            if (response.status !== 200) {
+                throw new Error("Can`t get a random word.")
+            }
+
+            const data = await response.json()
+
+            setWord(data.value.toUpperCase())
+        }
+
+        getRandomWord()
+            .catch(err => {
+                console.error(err)
+            })
+
+    }, [])
+
     return (
         <>
             <GameContext.Provider value={{
                 structure,
                 setStructure,
-                DUMMY_TEXT,
+                word: word,
                 keyHandler
             }}>
                 {children}
             </GameContext.Provider>
             {showModal && createPortal(<GameEndModal closeModal={closeModal} isWon={isWon}
-                                                     word={DUMMY_TEXT}/>, document.querySelector("#modal-root"))}
+                                                     word={word}/>, document.querySelector("#modal-root"))}
             {showModal && createPortal(<Backdrop/>, document.querySelector("#modal-root"))}
         </>
     )
