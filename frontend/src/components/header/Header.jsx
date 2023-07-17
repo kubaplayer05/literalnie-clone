@@ -7,7 +7,7 @@ import StatsModal from "../modals/StatsModal.jsx";
 import style from "./Header.module.css"
 import Backdrop from "../UI/Backdrop/Backdrop.jsx";
 
-const Header = props => {
+const Header = () => {
 
     const [showHelpModal, setShowHelpModal] = useState(false)
     const [showStatsModal, setShowStatsModal] = useState(false)

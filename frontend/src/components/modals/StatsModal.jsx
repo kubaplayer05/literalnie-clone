@@ -1,4 +1,3 @@
-import {useEffect, useState} from "react";
 import Modal from "../UI/Modal/Modal.jsx";
 
 const StatsModal = props => {
