@@ -1,4 +1,6 @@
-import Modal from "../UI/Modal/Modal.jsx";
+import Modal from "../../UI/Modal/Modal.jsx";
+
+import styles from "./StatsModal.module.css"
 
 const StatsModal = props => {
 
@@ -11,19 +13,19 @@ const StatsModal = props => {
     }
 
     return (
-        <Modal closeModal={closeStatsModal}>
+        <Modal className={styles.modal} closeModal={closeStatsModal}>
             <h2>Statystyki</h2>
-            <div>
-                <div>
-                    <span>{gamesPlayed}</span>
+            <div className={styles.container}>
+                <div className={styles.statsBox}>
+                    <span className={styles.played}>{gamesPlayed}</span>
                     <p>rozegrane gry</p>
                 </div>
-                 <div>
-                    <span>{wins}</span>
+                <div className={styles.statsBox}>
+                    <span className={styles.win}>{wins}</span>
                     <p>wygrane gry</p>
                 </div>
-                 <div>
-                    <span>{winStreak}</span>
+                <div className={styles.statsBox}>
+                    <span className={styles.streak}>{winStreak}</span>
                     <p>wygrane gry z rzędu</p>
                 </div>
             </div>

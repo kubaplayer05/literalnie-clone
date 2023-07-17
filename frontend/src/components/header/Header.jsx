@@ -3,7 +3,7 @@ import {createPortal} from "react-dom";
 import helpIcon from "../../assets/help-light.png"
 import statsIcon from "../../assets/charts-light.png"
 import HelpModal from "../modals/HelpModal.jsx";
-import StatsModal from "../modals/StatsModal.jsx";
+import StatsModal from "../modals/statsModal/StatsModal.jsx";
 import style from "./Header.module.css"
 import Backdrop from "../UI/Backdrop/Backdrop.jsx";
 

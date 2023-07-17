@@ -1,0 +1,37 @@
+.container {
+    padding-top: 30px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-content: center;
+    gap: 15px;
+}
+
+.statsBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.statsBox span {
+    color: var(--white);
+    font-weight: 600;
+    padding: 4px 6px;
+    border-radius: 2px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0 1px 2px 0;
+}
+
+.statsBox p {
+    text-align: center;
+}
+
+.win {
+    background-color: var(--green-light);
+}
+
+.played {
+    background-color: var(--blue);
+}
+
+.streak {
+    background-color: var(--pink);
+}
