@@ -14,6 +14,9 @@
     --blue: #5bc0eb;
     --green-light: #9BC53D;
     --pink: #EF476F;
+    --red: #b0190e;
+    --red-dark: #a0080d;
+    --red-very-dark: #60040a;
 
     color-scheme: light dark;
     color: var(--white);

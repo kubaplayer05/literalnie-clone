@@ -5,7 +5,7 @@ const Modal = props => {
 
     let showIcon = true
 
-    if(props.showIcon === false) {
+    if (props.showIcon === false) {
         showIcon = false
     }
 
@@ -13,8 +13,14 @@ const Modal = props => {
         props.closeModal()
     }
 
+    const animationEndHandler = e => {
+        const {animationEndHandler} = props
+
+        animationEndHandler ? animationEndHandler(e) : ""
+    }
+
     return (
-        <div className={`${style.modal} ${props.className}`}>
+        <div onAnimationEnd={animationEndHandler} className={`${style.modal} ${props.className}`}>
             {showIcon && <img onClick={closeModal} className={style.close} alt="close icon" src={closeIcon}/>}
             {props.children}
         </div>
