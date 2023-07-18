@@ -1,0 +1,28 @@
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2.5rem;
+}
+
+.header:after {
+    content: "";
+    width: 400px;
+    height: 2px;
+    background-color: #fff;
+    position: absolute;
+    translate: 0 30px;
+}
+
+.title {
+    font-size: 2rem;
+    color: #fff;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.icon {
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+}

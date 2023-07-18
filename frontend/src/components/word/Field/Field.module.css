@@ -1,0 +1,23 @@
+.field {
+    width: 60px;
+    height: 60px;
+    font-size: 1.6rem;
+    border: 1px solid var(--gray-light);
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+}
+
+.perfect {
+    background-color: var(--green);
+}
+
+.good {
+    background-color: var(--yellow);
+}
+
+.wrong {
+    background-color: var(--gray-very-dark);
+}
