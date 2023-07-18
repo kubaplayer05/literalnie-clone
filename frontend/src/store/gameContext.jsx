@@ -9,6 +9,15 @@ export const GameContext = createContext(null)
 // eslint-disable-next-line react/prop-types
 export const GameProvider = ({children}) => {
 
+    const baseUrl = "http://localhost:3000/"
+    const options = {
+        method: "GET",
+        mode: "cors",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    }
+
     const [structure, setStructure] = useState([
         {
             id: 0,
@@ -89,23 +98,42 @@ export const GameProvider = ({children}) => {
         switch (value) {
             case "ENTER":
                 if (letterIndex === activeRow.fields.length) {
-                    activeRow.isLocked = true
-                    let userWord = ""
-                    activeRow.fields.forEach((field, index) => {
-                        userWord += field.value
-                        if (field.value === word[index]) {
-                            field.status = "perfect"
-                        } else if (word.includes(field.value)) {
-                            field.status = "good"
-                        } else {
-                            field.status = "wrong"
-                        }
 
-                        if (userWord === word) {
-                            winGame()
+                    let userWord = ""
+
+                    activeRow.fields.forEach((field) => {
+                        userWord += field.value
+                    })
+
+                    checkIfWordExist(userWord).then(exist => {
+                        if (exist) {
+                            userWord = ""
+
+                            activeRow.isLocked = true
+                            activeRow.fields.forEach((field, index) => {
+                                userWord += field.value
+                                if (field.value === word[index]) {
+                                    field.status = "perfect"
+                                } else if (word.includes(field.value)) {
+                                    field.status = "good"
+                                } else {
+                                    field.status = "wrong"
+                                }
+
+                                if (userWord === word) {
+                                    winGame()
+                                }
+                            })
+                            setLetterIndex(0)
+                        } else {
+                            console.log("Podane słowo nie znajduje się w bazie")
                         }
                     })
-                    setLetterIndex(0)
+                        .catch(err => {
+                            console.error(err)
+                        })
+
+
                 } else {
                     console.log("You must provide all fields in the row")
                 }
@@ -163,6 +191,21 @@ export const GameProvider = ({children}) => {
         setShowModal(true)
     }
 
+    const checkIfWordExist = async word => {
+
+        const url = baseUrl + `check/${word}`
+
+        const response = await fetch(url, options)
+        if (response.status !== 200) {
+            throw new Error("Can`t check if the word exist.")
+        }
+
+        const data = await response.json()
+        console.log(data)
+
+        return data.value
+    }
+
     const closeModal = () => {
         setShowModal(false)
     }
@@ -170,17 +213,9 @@ export const GameProvider = ({children}) => {
 
     useEffect(() => {
 
-        const getRandomWord = async () => {
+        const url = baseUrl + "word"
 
-            const url = "http://localhost:3000/word"
-            const options = {
-                method: "GET",
-                mode: "cors",
-                headers: {
-                    "Content-Type": "application/json",
-                    "access-control-allow-origin": "*",
-                },
-            }
+        const getRandomWord = async () => {
 
             const response = await fetch(url, options)
             if (response.status !== 200) {

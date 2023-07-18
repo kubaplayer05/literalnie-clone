@@ -11,5 +11,5 @@ export const getRandomWord = length => {
 export const checkIfExist = (word, length) => {
 
     const wordsArray = getWordsArray(length)
-    return wordsArray.includes(word);
+    return wordsArray.includes(word.toLowerCase());
 }
