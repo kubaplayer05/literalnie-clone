@@ -1,0 +1,78 @@
+.errorModal {
+    top: 10%;
+    height: 75px;
+    border-radius: 0;
+    padding: 0;
+    background-color: var(--red);
+    font-size: 16px;
+    color: var(--white);
+    animation: normal 0.75s ease turn-on;
+    box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+}
+
+.modalContainer {
+    display: flex;
+}
+
+.content {
+    padding: 0 10px;
+}
+
+.closeContainer {
+    position: relative;
+    width: 40px;
+    height: 100%;
+    background-color: var(--red-dark);
+    margin-left: auto;
+}
+
+.closeContainer::before {
+    display: block;
+    content: "";
+    width: 2px;
+    height: 75px;
+    background-color: rgba(255, 255, 255, 0.35);
+    z-index: 100;
+    translate: -2px 0;
+}
+
+.closeContainer img {
+    width: 14px;
+    height: 14px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.turnOff {
+    animation: normal 0.75s ease turn-off;
+    top: 0;
+    opacity: 0;
+}
+
+@keyframes turn-on {
+    0% {
+        top: 0;
+        opacity: 0;
+    }
+
+    100% {
+        top: 10%;
+        opacity: 100%;
+    }
+}
+
+@keyframes turn-off {
+    0% {
+        top: 10%;
+        opacity: 100%;
+    }
+
+    100% {
+        top: 0;
+        opacity: 0;
+    }
+}

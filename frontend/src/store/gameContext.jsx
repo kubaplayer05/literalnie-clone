@@ -3,6 +3,7 @@ import {createContext, useEffect, useState} from "react";
 import useStats from "../hooks/useStats.jsx";
 import GameEndModal from "../components/modals/GameEndModal.jsx";
 import Backdrop from "../components/UI/Backdrop/Backdrop.jsx";
+import ErrModal from "../components/modals/errorModal/ErrModal.jsx";
 
 export const GameContext = createContext(null)
 
@@ -81,6 +82,9 @@ export const GameProvider = ({children}) => {
     const [showModal, setShowModal] = useState(false)
     const [isWon, setIsWon] = useState(false)
 
+    const [showError, setShowError] = useState(false)
+    const [error, setError] = useState("")
+
     const keyHandler = value => {
 
         for (let i = 0; i < structure.length; i++) {
@@ -126,7 +130,8 @@ export const GameProvider = ({children}) => {
                             })
                             setLetterIndex(0)
                         } else {
-                            console.log("Podane słowo nie znajduje się w bazie")
+                            setError("Podane słowo nie znajduje się w bazie.")
+                            setShowError(true)
                         }
                     })
                         .catch(err => {
@@ -135,7 +140,8 @@ export const GameProvider = ({children}) => {
 
 
                 } else {
-                    console.log("You must provide all fields in the row")
+                    setError("Wyraz musi się składać z 5 liter.")
+                    setShowError(true)
                 }
                 break
             case "<-":
@@ -210,6 +216,10 @@ export const GameProvider = ({children}) => {
         setShowModal(false)
     }
 
+    const closeErrModal = () => {
+        setShowError(false)
+    }
+
 
     useEffect(() => {
 
@@ -247,6 +257,8 @@ export const GameProvider = ({children}) => {
             {showModal && createPortal(<GameEndModal closeModal={closeModal} isWon={isWon}
                                                      word={word}/>, document.querySelector("#modal-root"))}
             {showModal && createPortal(<Backdrop/>, document.querySelector("#modal-root"))}
+            {showError && createPortal(<ErrModal content={error}
+                                                 closeModal={closeErrModal}/>, document.querySelector("#modal-root"))}
         </>
     )
 }
