@@ -10,3 +10,10 @@
 .key:hover {
     background-color: var(--gray-dark);
 }
+
+@media (max-width: 512px) {
+    .key {
+        padding: 0.7rem 0.8rem;
+        font-size: 16px;
+    }
+}

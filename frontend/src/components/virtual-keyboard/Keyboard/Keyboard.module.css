@@ -15,3 +15,13 @@
     justify-content: center;
     gap: 10px;
 }
+
+@media (max-width: 512px) {
+    .keyboard {
+        gap: 5px;
+    }
+
+    .row {
+        gap: 5px;
+    }
+}
