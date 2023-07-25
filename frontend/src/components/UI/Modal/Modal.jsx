@@ -1,11 +1,11 @@
 import closeIcon from "../../../assets/close.png"
 import style from "./Modal.module.css"
+import backdropStyles from "../Backdrop/Backdrop.module.css"
 import {useState} from "react";
 
 const Modal = props => {
 
-    const [className, setClassName] = useState(`${style.modal} ${props.className}`);
-
+    const [modalClassName, setClassName] = useState(`${style.modal}`);
     let showIcon = true
 
     if (props.showIcon === false) {
@@ -13,21 +13,25 @@ const Modal = props => {
     }
 
     const closeModal = () => {
-        setClassName(`${style.modal} ${style.turnOff} ${props.className}`)
+        const container = document.getElementById("modal-root");
+        const allDivs = container.querySelectorAll("div");
+        const backdrop = allDivs[allDivs.length - 1];
+        backdrop.classList.add(`${backdropStyles.turnOff}`)
+        setClassName(`${style.modal} ${style.turnOff}`)
     }
 
     const animationEndHandler = e => {
         const {animationEndHandler} = props
 
-        if (e.animationName.includes("turn-off")) {
+        if (e.animationName.includes("turn-off") && !animationEndHandler) {
             props.closeModal()
+        } else {
+            animationEndHandler ? animationEndHandler(e) : ""
         }
-
-        animationEndHandler ? animationEndHandler(e) : ""
     }
 
     return (
-        <div onAnimationEnd={animationEndHandler} className={className}>
+        <div onAnimationEnd={animationEndHandler} className={`${modalClassName} ${props.className}`}>
             {showIcon && <img onClick={closeModal} className={style.close} alt="close icon" src={closeIcon}/>}
             {props.children}
         </div>
