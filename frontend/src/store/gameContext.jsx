@@ -10,10 +10,9 @@ export const GameContext = createContext(null)
 // eslint-disable-next-line react/prop-types
 export const GameProvider = ({children}) => {
 
-    const baseUrl = "http://localhost:3000/"
+    const baseUrl = "https://literalnie-backend--kubaplayer05.repl.co/"
     const options = {
         method: "GET",
-        mode: "cors",
         headers: {
             "Content-Type": "application/json",
         },
@@ -242,7 +241,9 @@ export const GameProvider = ({children}) => {
 
         const url = baseUrl + "word"
 
+        /*
         const response = await fetch(url, options)
+        console.log(response)
         if (response.status !== 200) {
             throw new Error("Can`t get a random word.")
         }
@@ -250,6 +251,14 @@ export const GameProvider = ({children}) => {
         const data = await response.json()
 
         setWord(data.value.toUpperCase())
+
+         */
+
+        fetch(url, options).then(res => res.json()).then(data => {
+            setWord(data.value.toUpperCase())
+        }).catch(err => {
+            throw new Error(err)
+        })
     }
 
     useEffect(() => {
