@@ -1,7 +1,7 @@
 import {createPortal} from "react-dom";
 import {createContext, useEffect, useState} from "react";
 import useStats from "../hooks/useStats.jsx";
-import GameEndModal from "../components/modals/GameEndModal.jsx";
+import GameEndModal from "../components/modals/gameEndModal/GameEndModal.jsx";
 import Backdrop from "../components/UI/Backdrop/Backdrop.jsx";
 import ErrModal from "../components/modals/errorModal/ErrModal.jsx";
 
@@ -129,6 +129,10 @@ export const GameProvider = ({children}) => {
 
                                 if (userWord === word) {
                                     winGame()
+                                } else {
+                                    if (!checkIfActiveRowsLeft()) {
+                                        loseGame()
+                                    }
                                 }
                             })
                             setLetterIndex(0)
@@ -225,28 +229,95 @@ export const GameProvider = ({children}) => {
         setShowError(false)
     }
 
-    useEffect(() => {
+    const checkIfActiveRowsLeft = () => {
+        for (let i = 0; i < structure.length; i++) {
+            if (!structure[i].isLocked) {
+                return true
+            }
+        }
+        return false
+    }
+
+    const getRandomWord = async () => {
 
         const url = baseUrl + "word"
 
-        const getRandomWord = async () => {
-
-            const response = await fetch(url, options)
-            if (response.status !== 200) {
-                throw new Error("Can`t get a random word.")
-            }
-
-            const data = await response.json()
-
-            setWord(data.value.toUpperCase())
+        const response = await fetch(url, options)
+        if (response.status !== 200) {
+            throw new Error("Can`t get a random word.")
         }
 
+        const data = await response.json()
+
+        setWord(data.value.toUpperCase())
+    }
+
+    useEffect(() => {
         getRandomWord()
             .catch(err => {
-                console.error(err)
+                setError(err)
+                setShowError(true)
             })
-
     }, [])
+
+    const restartGame = () => {
+        setStructure([
+            {
+                id: 0,
+                isLocked: false,
+                fields: [{value: "", status: "unchecked"}, {value: "", status: "unchecked"}, {
+                    value: "",
+                    status: "unchecked"
+                }, {value: "", status: "unchecked"}, {value: "", status: "unchecked"}]
+            },
+            {
+                id: 1,
+                isLocked: false,
+                fields: [{value: "", status: "unchecked"}, {value: "", status: "unchecked"}, {
+                    value: "",
+                    status: "unchecked"
+                }, {value: "", status: "unchecked"}, {value: "", status: "unchecked"}]
+            },
+            {
+                id: 2,
+                isLocked: false,
+                fields: [{value: "", status: "unchecked"}, {value: "", status: "unchecked"}, {
+                    value: "",
+                    status: "unchecked"
+                }, {value: "", status: "unchecked"}, {value: "", status: "unchecked"}]
+            },
+            {
+                id: 3,
+                isLocked: false,
+                fields: [{value: "", status: "unchecked"}, {value: "", status: "unchecked"}, {
+                    value: "",
+                    status: "unchecked"
+                }, {value: "", status: "unchecked"}, {value: "", status: "unchecked"}]
+            },
+            {
+                id: 4,
+                isLocked: false,
+                fields: [{value: "", status: "unchecked"}, {value: "", status: "unchecked"}, {
+                    value: "",
+                    status: "unchecked"
+                }, {value: "", status: "unchecked"}, {value: "", status: "unchecked"}]
+            },
+            {
+                id: 5,
+                isLocked: false,
+                fields: [{value: "", status: "unchecked"}, {value: "", status: "unchecked"}, {
+                    value: "",
+                    status: "unchecked"
+                }, {value: "", status: "unchecked"}, {value: "", status: "unchecked"}]
+            }
+        ])
+        setLetterIndex(0)
+        activeRow = null
+        getRandomWord().catch(err => {
+            setError(err)
+            setShowError(true)
+        })
+    }
 
     return (
         <>
@@ -254,11 +325,11 @@ export const GameProvider = ({children}) => {
                 structure,
                 setStructure,
                 word: word,
-                keyHandler
+                keyHandler,
             }}>
                 {children}
             </GameContext.Provider>
-            {showModal && createPortal(<GameEndModal closeModal={closeModal} isWon={isWon}
+            {showModal && createPortal(<GameEndModal restartGame={restartGame} closeModal={closeModal} isWon={isWon}
                                                      word={word}/>, document.querySelector("#modal-root"))}
             {showModal && createPortal(<Backdrop/>, document.querySelector("#modal-root"))}
             {showError && createPortal(<ErrModal content={error}
