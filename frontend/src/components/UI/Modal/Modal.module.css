@@ -5,11 +5,19 @@
     position: absolute;
     width: 400px;
     height: 300px;
-    background-color: #fff;
-    color: var(--dark);
+    background-color: var(--dark);
+    border: 1px solid var(--white);
+    color: var(--white);
     border-radius: 15px;
     z-index: 10;
     padding: 0.6rem 1.5rem;
+    animation: ease 1s turn-on;
+}
+
+.turnOff {
+    opacity: 0;
+    translate: -50% -75%;
+    animation: ease 1s turn-off;
 }
 
 .close {
@@ -19,4 +27,28 @@
     position: absolute;
     top: 1.5rem;
     right: 1.5rem;
+}
+
+@keyframes turn-on {
+    0% {
+        opacity: 75%;
+        translate: -50% -75%;
+    }
+
+    100% {
+        opacity: 100%;
+        translate: -50% -50%;
+    }
+}
+
+@keyframes turn-off {
+    0% {
+        opacity: 100%;
+        translate: -50% -50%;
+    }
+
+    100% {
+        opacity: 0;
+        translate: -50% -75%;
+    }
 }

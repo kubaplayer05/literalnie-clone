@@ -85,6 +85,9 @@ export const GameProvider = ({children}) => {
     const [showError, setShowError] = useState(false)
     const [error, setError] = useState("")
 
+    const regex = /^[A-Z]+$/
+    const polishLetters = ["Ą", "Ć", "Ę", "Ł", "Ó", "Ś", "Ń", "Ż", "Ź"]
+
     const keyHandler = value => {
 
         for (let i = 0; i < structure.length; i++) {
@@ -149,9 +152,11 @@ export const GameProvider = ({children}) => {
                 setLetterIndex(prevIndex => prevIndex - 1)
                 break
             default:
-                activeRow.fields[letterIndex].value = value
-                if (letterIndex < activeRow.fields.length) {
-                    setLetterIndex(prevIndex => prevIndex + 1)
+                if (regex.test(value) || polishLetters.includes(value)) {
+                    activeRow.fields[letterIndex].value = value
+                    if (letterIndex < activeRow.fields.length) {
+                        setLetterIndex(prevIndex => prevIndex + 1)
+                    }
                 }
         }
 
@@ -219,7 +224,6 @@ export const GameProvider = ({children}) => {
     const closeErrModal = () => {
         setShowError(false)
     }
-
 
     useEffect(() => {
 

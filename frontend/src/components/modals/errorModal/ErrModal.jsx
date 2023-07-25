@@ -38,6 +38,7 @@ const ErrModal = props => {
                     <img onClick={closeAnimationHandler} src={close} alt=""/>
                 </div>
             </div>
+
         </Modal>
     )
 }

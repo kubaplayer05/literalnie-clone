@@ -1,5 +1,4 @@
 import {GameProvider} from "./store/gameContext.jsx";
-
 import Keyboard from "./components/virtual-keyboard/Keyboard/Keyboard.jsx";
 import Word from "./components/word/Word.jsx";
 import Header from "./components/header/Header.jsx";

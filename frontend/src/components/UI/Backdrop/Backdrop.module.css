@@ -4,6 +4,32 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.6);
+    background-color: rgba(0, 0, 0, 0.6);
     z-index: 5;
+    animation: 1s ease turn-on;
+}
+
+.turnOff {
+    background-color: rgba(0, 0, 0, 0);
+    animation: 1s ease turn-off;
+}
+
+@keyframes turn-on {
+    0% {
+        background-color: rgba(0, 0, 0, 0)
+    }
+
+    100% {
+        background-color: rgba(0, 0, 0, 0.6);
+    }
+}
+
+@keyframes turn-off {
+    0% {
+        background-color: rgba(0, 0, 0, 0.6);
+    }
+
+    100% {
+        background-color: rgba(0, 0, 0, 0)
+    }
 }

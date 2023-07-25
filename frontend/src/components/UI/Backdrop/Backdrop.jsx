@@ -1,6 +1,6 @@
 import style from "./Backdrop.module.css"
 
-const Backdrop = () => {
+const Backdrop = props => {
 
     return (
         <div className={style.backdrop}></div>
