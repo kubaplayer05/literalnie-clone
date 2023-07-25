@@ -1,8 +1,5 @@
 .keyboard {
-    position: absolute;
-    bottom: 2.5rem;
-    left: 50%;
-    translate: -50% 0;
+    margin-top: 50px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -18,10 +15,10 @@
 
 @media (max-width: 512px) {
     .keyboard {
-        gap: 5px;
+        gap: 4px;
     }
 
     .row {
-        gap: 5px;
+        gap: 4px;
     }
 }
