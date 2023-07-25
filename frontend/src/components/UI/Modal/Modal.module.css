@@ -12,6 +12,7 @@
     z-index: 10;
     padding: 0.6rem 1.5rem;
     animation: ease 1s turn-on;
+
 }
 
 .turnOff {

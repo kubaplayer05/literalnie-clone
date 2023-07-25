@@ -2,6 +2,7 @@
     top: 10%;
     height: 75px;
     border-radius: 0;
+    border: 0;
     padding: 0;
     background-color: var(--red);
     font-size: 16px;

@@ -2,13 +2,11 @@ import Modal from "../../UI/Modal/Modal.jsx";
 
 import styles from "./ErrModal.module.css"
 import close from "../../../assets/close.png"
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 const ErrModal = props => {
 
     const timeout = props.timeout || 3000
-    const [animationTime, setAnimationTime] = useState(timeout / 1000)
-
     const [modalClassName, setModalClassName] = useState(`${styles.errorModal}`)
 
     setTimeout(() => {
@@ -31,7 +29,8 @@ const ErrModal = props => {
     }
 
     return (
-        <Modal animationEndHandler={animationEndHandler} showIcon={false} className={modalClassName}>
+        <Modal className={modalClassName} animationEndHandler={animationEndHandler} showIcon={false}
+        >
             <div className={styles.modalContainer}>
                 <p className={styles.content}>{props.content}</p>
                 <div className={styles.closeContainer}>
